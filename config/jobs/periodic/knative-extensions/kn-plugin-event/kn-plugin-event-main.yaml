@@ -38,7 +38,6 @@ periodics:
               trap 'pushd $ORIGINAL_DIR; source cluster-setup.sh delete' EXIT
 
               source cluster-setup.sh create
-              export KO_DEFAULTBASEIMAGE="gcr.io/distroless/static:nonroot"
               pushd $GOPATH/src/github.com/$ORG/$KNATIVE_REPO
               . /tmp/adjust.sh
               ./test/e2e-tests.sh --run-tests
@@ -51,5 +50,7 @@ periodics:
               value: kn-plugin-event
             - name: KNATIVE_RELEASE
               value: main
+            - name: KO_DEFAULTBASEIMAGE
+              value: ghcr.io/wolfi-dev/static:alpine
             - name: SSL_CERT_FILE
               value: /etc/ssl/certs/ca-certificates.crt
